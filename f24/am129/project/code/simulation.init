@@ -1,0 +1,8 @@
+cfl 1
+diffusion_coeff 11.56
+advection_velocity 0.0
+tmax 2.0
+N 32
+run_name diffusion_64
+smooth_advec_ic 0
+advection_scheme centered

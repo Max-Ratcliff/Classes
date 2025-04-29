@@ -1,0 +1,81 @@
+\documentclass{article}
+\usepackage{siunitx}
+%% written with GPT prompted with:--------------------------
+%% give me info on lstinline how do i set the code highlighting to fortran in line
+\usepackage{listings}
+\usepackage{xcolor}
+\lstset{
+    language=Fortran,           % Set the default language to Fortran
+    basicstyle=\ttfamily,       % Use a monospaced font for the code
+    keywordstyle=\color{blue},  % Set color for Fortran keywords
+    commentstyle=\color{gray},  % Set color for comments
+    stringstyle=\color{red},    % Set color for strings
+    numbers=none,               % Disable line numbers for inline code
+    breaklines=true,            % Automatically break long lines
+}
+%%--------------------------------------------------------
+\begin{document}
+    \section*{Implementation}
+        This program solves a Boundary Value problem using the spectral collocation method
+        over with a variable amount of discretization and then measures the error of the 
+        estimation with the analytical solution, first we define the dft module which will let us perform a discrete fourier transform 
+        on our function and then we create problemsetup to define our forcing function. Then we define the bvp and and use the tools outlines in the dtf module
+        to solve the bvp. We then compare our solution to the provided analytical one and determine the error
+    \section*{Questions}
+        \subsection*{1.}
+            in \texttt{bvp.f90} and \texttt{dft.f90} we do {\lstinline|use utility, only: fp, pi|}
+            which enables us to use \texttt{real (fp)} throughout these files
+        \subsection*{2.}
+            \texttt{dft.f90} implements basic matrix multiplication and a discrete fourier transform so it 
+            isnt super specific to this boundary value problem and could be used for others. \texttt{bvp.f90} uses
+            the functions provided by \texttt{dft.f90} and then uses them to solve the specific BVP setup in 
+            \texttt{problemsetup.f90}
+        \subsection*{3.}
+            because the size of arrays that we use are dependent on the level discretization. The more steps we take the bigger our 
+            matrices are. They are allocated based on N in the \texttt{allocate\_data} subroutine and then at the end dealoccated by 
+            \texttt{deallocate\_data}
+        \subsection*{4.}
+            elemental functions operate element wise on matrices allowing us to fill out our resulting array with the result at each point
+            of discretization.
+        \subsection*{5.}
+            \begin{table}[ht]
+                \centering
+                \begin{tabular}{|c|c|}
+                    \hline
+                    \textbf{Amount of discretization} & \textbf{Error}\\
+                    \hline
+                    21 & \num{9.8179492425631842E-003} \\
+                    41 & \num{5.5800848519638180E-007} \\
+                    61 & \num{1.0906164860102763E-011} \\
+                    81 & \num{6.2172489379008766E-015} \\
+                    101 & \num{5.5511151231257827E-015} \\
+                    \hline
+                \end{tabular}
+            \end{table}
+            the error starts to decrease much much slower after 81 this indicates that we've reached a level of discretization small enough
+            that we have a suitable estimation
+        \subsection*{6.}
+            with precision set to 6 decimal points \\
+            \begin{table}[ht]
+                \centering
+                \begin{tabular}{|c|c|}
+                    \hline
+                    \textbf{Amount of discretization} & \textbf{Error}\\
+                    \hline
+                    21 & \num{9.82260704E-03} \\
+                    41 & \num{8.10623169E-06} \\
+                    61 & \num{2.38418579E-06} \\
+                    81 & \num{4.52995300E-06} \\
+                    101 & \num{3.81469727E-06} \\
+                    \hline
+                \end{tabular}
+            \end{table}
+            \\
+            the error reaches its minimum value much faster and it is less precise
+        \subsection*{7.}
+            this assignment had us build the tools to perform a discrete fourier transform and then defines a forcing function 
+            and then we define a function that we solve a boundary value problem for using the dft tools we created earlier
+        \subsection*{8.}
+            the real kind is 16 and the error is a much much longer number 
+
+\end{document}

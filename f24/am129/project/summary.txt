@@ -1,0 +1,11 @@
+In this project we will use fortran to solve the advection-diffusion PDEs numerically using 4 finite difference schemes and then display and analyze the results in python
+
+ToDo:
+1. write fortran portion
+2. debug
+3. write python to display results
+4. refine issues in fortran code
+5. prettify plots
+6. write report
+7. do extra credit
+8. revise report
