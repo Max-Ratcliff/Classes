@@ -1,9 +1,0 @@
-[submodule "s24/mwratcli"]
-	path = s24/mwratcli
-	url = git@git.ucsc.edu:cse13s/spring-2024-section-01/mwratcli.git
-[submodule "f24/am129/ratcliff-max-am129-fall24"]
-	path = f24/am129/ratcliff-max-am129-fall24
-	url = git@git.ucsc.edu:mwratcli/ratcliff-max-am129-fall24.git
-[submodule "w25/cse101/mwratcli"]
-	path = w25/cse101/mwratcli
-	url = git@git.ucsc.edu:cse101/winter25/mwratcli.git
