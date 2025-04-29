@@ -1,0 +1,101 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Overleaf Template
+% Authors: Dr. Veenstra and Jess Srinivas
+% V2 with better boxes!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% CHANGE THESE DEFINITIONS
+
+\newcommand{\NAME}{Max Ratcliff}
+\newcommand{\ASSIGNMENT}{Assignment 4 -- XD Report}
+\newcommand{\CLASS}{CSE 13S -- Spring 24}
+
+% THEN WRITE YOUR PARAGRAPHS STARTING IN THE
+% "Purpose" SECTION (AROUND LINE 44).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{hyperref}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{underscore}
+\usepackage{subcaption}
+\usepackage{fancyvrb}
+\usepackage{listings}
+\lstset{
+basicstyle=\small\ttfamily,
+columns=flexible,
+breaklines=true
+}
+
+
+\title{\ASSIGNMENT}
+\author{\NAME}
+\date{\CLASS}
+
+\begin{document}
+\pagestyle{fancy}
+\fancyfoot{}
+\fancyhead{}
+\fancyfoot[L]{\ASSIGNMENT\ -- \CLASS\ -- \NAME}
+\fancyfoot[R]{\thepage}
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% BEGIN WRITING YOUR DESIGN REPORT HERE
+
+\section*{Purpose}
+
+\textbf{The purpose of this program is to mimic that of 'xxd' that is to read a file name and create a hex dump with 3 columns, the first being the index of the first byte, the second column being 16 bytes of the file and the last collumn being the ascii representation of the 16 bytes.}
+
+\section*{Questions}
+Please answer the following questions before you start coding. They will help guide you through the assignment. To make the grader's life easier, please do not remove the questions, and simply put your answers below the text of each question. 
+\begin{itemize}
+	\item What is a buffer? Why use one? \textbf{a buffer is a temporary array that lets you process alot of text/data in chunks instead of all at once.}
+	\item What is the return value of \texttt{read()}? What are the inputs? \textbf{read will return either the number of bytes read or -1 if there was some sort of error. its inputs are the file descriptor which specifies which input source to read from, a pointer to a buffer into which it should read, and a maximum amount of bytes to read}
+	\item What is a file no. ? What are the file numbers of \texttt{stdin}, \texttt{stdout}, and \texttt{stderr}? \textbf{a file number is an integer number that helps inform where to read from, eg stdin, stdout, stderr, or any other file. stdin has file #0, stdout is #1 and stderr is #2}
+	\item What are the cases in which \texttt{read(0,16)} will return 16? When will it \textit{not} return 16? \textbf{read(0,16) will attempt to read 16 bytes from stdin. It will read all 16 as long as the user inputs at least 16 characters, if the user inputs less it will read less. if for somereason read doesnt have access to stdin it will eror}
+	\item Give at least 2 (very differnt) cases in which a file can not be read all at once \textbf{you would not be able to read the file all at once if the file is too big, or if the file read is interupted by the user or some other program.}
+\end{itemize}
+
+
+\subsection*{Testing}
+List what you will do to test your code. Make sure this is comprehensive. \footnote{This question is a whole lot more vague than it has been the last few assignments. Continue to answer it with the same level of detail and thought.} Be sure to test inputs with delays. 
+
+
+\section*{How to Use the Program}
+
+\textbf{to use this program run either './xd' or './xd <filename>' the first one will read from stdin and the second one will read from the provided file}
+
+\section*{Program Design}
+
+\textbf{The program will be written in main and will loop until 16 bytes can no longer be read it will first print the starting index of the first byte and then print the contents in hex and then the contents interpreted as ascii.}
+
+\subsection*{Pseudocode}
+
+\textbf{parse argv: if file name provided open file and start reading into buffer, if no filename provided get input from stdin.
+initialize line counter
+loop until result from read = 0
+print index padded to 8
+step through buffer and print as hex
+if res < 16 pad the rest with spaces
+print the buffer as ascii and print a newline}
+
+\subsection*{Function Descriptions}
+\textbf{I did not make use of any functions for this program.}
+\subsection*{Optimizations}
+This section is optional, but is required if you do the extra credit. It due \texttt{only} on your final design. You do not need it on your initial. 
+
+In what way did you make your code shorter. List everything you did!
+
+% Any references in your report appear at
+% the end of the document automatically.
+\bibliographystyle{unsrt}
+\bibliography{bibtex}
+\end{document}

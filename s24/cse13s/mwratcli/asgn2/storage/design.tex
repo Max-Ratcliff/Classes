@@ -1,0 +1,151 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Overleaf Template
+% Authors: Dr. Veenstra and Jess Srinivas
+% V2 with better boxes!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% CHANGE THESE DEFINITIONS
+
+\newcommand{\NAME}{Max Ratcliff}
+\newcommand{\ASSIGNMENT}{Assignment 2 -- LRC Report}
+\newcommand{\CLASS}{CSE 13S -- Spring 24}
+
+% THEN WRITE YOUR PARAGRAPHS STARTING IN THE
+% "Purpose" SECTION (AROUND LINE 55).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{hyperref}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{underscore}
+\usepackage{subcaption}
+\usepackage{fancyvrb}
+\usepackage{listings}
+\lstset{
+basicstyle=\small\ttfamily,
+columns=flexible,
+breaklines=true
+}
+
+
+\title{\ASSIGNMENT}
+\author{\NAME}
+\date{\CLASS}
+
+\begin{document}
+\pagestyle{fancy}
+\fancyfoot{}
+\fancyhead{}
+\fancyfoot[L]{\ASSIGNMENT\ -- \CLASS\ -- \NAME}
+\fancyfoot[R]{\thepage}
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% BEGIN WRITING YOUR DESIGN REPORT HERE
+
+\section*{Purpose}
+\textbf{The Purpose of this program is to play a game of Left, Center, Right to completion, by simulating dice rolls and making player decisions based off of them}
+
+\section{Questions}
+
+Please answer the following questions before you start coding. They will help guide you through the assignment. To make the grader's life easier, please do not remove the questions, and simply put your answers below the text of each question. 
+
+\subsection{Randomness}
+
+Describe what makes randomness. Is it possible for anything to be truly random? Why are we using pseudorandom numbers in this assignment?\textbf{
+Randomness is when you can't predict what's about to happen next and you can't discern a pattern. Nothing is truly random, as there is some model that can predict it. We use pseudorandom numbers cause to the human eye they are basically random and impossible to re-generate without a seed which we can arbitrarily select from places such as the system clock.}
+
+\subsection{What is an abstraction}
+When writing code, programmers often use "abstractions". Define an abstraction in non computer science terms (Don't google it!)
+\textbf{
+abstractions breakdown complex problems into a series of simple steps that make it very easy to solve.
+}
+\subsection{Why?}
+
+The last assignment was focused on debugging. How can abstractions make debugging easier?
+What other uses are there for abstractions? Hint: Do you have to be the one to write the abstraction?\textbf{
+Abstractions can make debugging easier by helping you isolate a bug by breaking a program into functions, they also improve collaboration as many different people can work on their part of the program and as long as the individual parts work to the spec then the whole program should work.
+}
+\subsection{Functions}
+
+When you write this assignment, you can chose to write functions. While functions might make the program longer, they can also make the program simpler to understand and debug. 
+How can we write the code to use 2 functions along with the main? How can we use 8 functions? Contrast these two implementations along with using no functions. Which will be easier for you?
+When you write the Program design section, think about your response to this section.\textbf{ 
+We can use 2 functions being a function to get the input for player number and seeds and handle errors and a function to return the move that happens due to the dice roll, to use 8 functions we could split the function to handle input into 4 separate ones, 2 to get each input and 2 to check for errors, we could split the function to handle the roll into 2, and we could add functions to handle each turn and a win check. The first implementation would work well, but will have large blocks of code, the second implementation is a lot of extra coding for minimal return and no functions would make debugging hard.
+}
+\subsection{Testing}
+
+The last assignment was focused on testing. For this assignment, what sorts of things do you want to test? How can you make your tests comprehensive?
+Give a few examples of inputs that you will test.\textbf{
+I will test to make sure the program properly handles too few or too many players, I will test to see when happens when it's given a non integer input such as a letter or a special character. I will also test to make sure the program handles an incorrect seed input properly.
+}
+\subsection{Putting it all together}
+
+The questions above included things about randomness, abstractions and testing. How does using a pseudorandom number generator and abstractions make your code easier to test?\textbf{
+using a pseudorandom number generator means that on two distinct program executions if the same player number and seed input is used than the winner should remain the same, and abstractions make bugs easier to identify and make it easier to test individual components of your program
+}
+\section{How to Use the Program}
+\textbf{
+To use this program. First run make which automatically compiles lcr.c then run ./lcr to start the program. Now you're running the program: First enter the number of players between 3 and 11 inclusive when prompted, and then enter an integer for a random seed when prompted… The program will then run automatically printing out player name, player roll and player chips each turn. Execution ends when there is a winner.
+}
+\section{Program Design}
+
+\subsection{Overall Pseudocode}
+\textbf{
+Scan for the number of players (3 to 11) and check for bad input
+scan for seed and check for bad input
+enter while loop for round:
+	enter for loop to loop through array:
+		print name of first player if they have dice available
+		for loop to roll all of player's dice:
+			modulus 6 to get rand num between 0 and 5
+			update chips
+		check for winner
+}
+\subsection{Descriptions of Functions}
+\textbf{
+Function 1:
+\begin{itemize}
+	\item roll_dice
+	\begin{itemize}
+		\item Inputs: none
+		\item Output: move (DOT, LEFT, CENTER, RIGHT)
+		\item Uses random number generator to simulate the roll of a dice and select the appropriate move
+	\end{itemize}
+\end{itemize}
+Function 2:
+\begin{itemize}
+	\item no_winner
+	\begin{itemize}
+		\item Inputs: array of chips and number of players
+		\item Outputs: True(1)/False(0)
+		\item Used as a loop helper. Checks for only 1 player having chips, if so prints the name of the winner and returns false to break the loop, otherwise returns returns true to continue
+	\end{itemize}
+\end{itemize}
+Function 3:
+\begin{itemize}
+	\item initchips
+	\begin{itemize}
+		\item Inputs: array of chips and number of players
+		\item Outputs: initialized array of chips
+		\item helper function to initialize the starting array of chips to contain all 3s
+	\end{itemize}
+\end{itemize}
+Function 4:
+\begin{itemize}
+	\item sim_game
+	\begin{itemize}
+		\item Inputs: number of players
+		\item Outputs: printing number of tokens at the end of each players turn
+		\item simulates the Left, Center, Right game and prints the player name and number of tokens at end of turn 
+	\end{itemize}
+\end{itemize}
+}
+\end{document}
