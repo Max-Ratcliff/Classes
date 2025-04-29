@@ -1,0 +1,2 @@
+# make the font bigger in RARS by X2.
+java -Dsun.java2d.uiScale=2 -jar rars_27a7c1f.jar

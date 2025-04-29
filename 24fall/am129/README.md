@@ -1,0 +1,1 @@
+Class Archive for AM129 Introduction To Scientific Computing. In this class we did a variety of projects teaching us varius Scientific Computing skills, culminating in a final project where I attempted to write an advection diffusion simulation in Fortran
